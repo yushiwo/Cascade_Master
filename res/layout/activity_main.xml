@@ -12,12 +12,13 @@
         android:paddingTop="5dip" >
 
         <TextView
+            android:id="@+id/id_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dip"
-            android:text="请选择省市区"
+            android:text="请选择时间"
             android:textColor="#000000"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -29,25 +30,31 @@
         android:orientation="horizontal" >
 
         <kankan.wheel.widget.WheelView
-            android:id="@+id/id_province"
+            android:id="@+id/id_hour"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" >
         </kankan.wheel.widget.WheelView>
 
+        <!-- <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="eee"
+        android:textColor="#000000" /> -->
         <kankan.wheel.widget.WheelView
-            android:id="@+id/id_city"
+            android:id="@+id/id_minute"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" >
         </kankan.wheel.widget.WheelView>
 
-        <kankan.wheel.widget.WheelView
+        <!-- <kankan.wheel.widget.WheelView
             android:id="@+id/id_district"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" >
-        </kankan.wheel.widget.WheelView>
+        </kankan.wheel.widget.WheelView> -->
     </LinearLayout>
 
     <Button

@@ -14,46 +14,51 @@ import com.mrwujay.cascade.model.DistrictModel;
 import com.mrwujay.cascade.model.ProvinceModel;
 import com.mrwujay.cascade.service.XmlParserHandler;
 
+/**
+ * è®¾ç½®è¦æ˜¾ç¤ºçš„æ•°æ®
+ * @author zhengrui
+ *
+ */
 public class BaseActivity extends Activity {
 	
 	/**
-	 * ËùÓĞÊ¡
+	 * çœæ•°æ®
 	 */
 	protected String[] mProvinceDatas;
 	/**
-	 * key - Ê¡ value - ÊĞ
+	 * key - Ê¡ value - ï¿½ï¿½
 	 */
 	protected Map<String, String[]> mCitisDatasMap = new HashMap<String, String[]>();
 	/**
-	 * key - ÊĞ values - Çø
+	 * key - ï¿½ï¿½ values - ï¿½ï¿½
 	 */
 	protected Map<String, String[]> mDistrictDatasMap = new HashMap<String, String[]>();
 	
 	/**
-	 * key - Çø values - ÓÊ±à
+	 * key - ï¿½ï¿½ values - ï¿½Ê±ï¿½
 	 */
 	protected Map<String, String> mZipcodeDatasMap = new HashMap<String, String>(); 
 
 	/**
-	 * µ±Ç°Ê¡µÄÃû³Æ
+	 * ï¿½ï¿½Ç°Ê¡ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	protected String mCurrentProviceName;
 	/**
-	 * µ±Ç°ÊĞµÄÃû³Æ
+	 * ï¿½ï¿½Ç°ï¿½Ğµï¿½ï¿½ï¿½ï¿½
 	 */
 	protected String mCurrentCityName;
 	/**
-	 * µ±Ç°ÇøµÄÃû³Æ
+	 * ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	protected String mCurrentDistrictName ="";
 	
 	/**
-	 * µ±Ç°ÇøµÄÓÊÕş±àÂë
+	 * ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	protected String mCurrentZipCode ="";
 	
 	/**
-	 * ½âÎöÊ¡ÊĞÇøµÄXMLÊı¾İ
+	 * XMLè§£æè·å–æ¯ä¸ªçœä»½çš„æ•°æ®
 	 */
 	
     protected void initProvinceDatas()
@@ -62,16 +67,16 @@ public class BaseActivity extends Activity {
     	AssetManager asset = getAssets();
         try {
             InputStream input = asset.open("province_data.xml");
-            // ´´½¨Ò»¸ö½âÎöxmlµÄ¹¤³§¶ÔÏó
+            // ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xmlï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			SAXParserFactory spf = SAXParserFactory.newInstance();
-			// ½âÎöxml
+			// ï¿½ï¿½ï¿½ï¿½xml
 			SAXParser parser = spf.newSAXParser();
 			XmlParserHandler handler = new XmlParserHandler();
 			parser.parse(input, handler);
 			input.close();
-			// »ñÈ¡½âÎö³öÀ´µÄÊı¾İ
+			// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			provinceList = handler.getDataList();
-			//*/ ³õÊ¼»¯Ä¬ÈÏÑ¡ÖĞµÄÊ¡¡¢ÊĞ¡¢Çø
+			//*/ ï¿½ï¿½Ê¼ï¿½ï¿½Ä¬ï¿½ï¿½Ñ¡ï¿½Ğµï¿½Ê¡ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½
 			if (provinceList!= null && !provinceList.isEmpty()) {
 				mCurrentProviceName = provinceList.get(0).getName();
 				List<CityModel> cityList = provinceList.get(0).getCityList();
@@ -85,28 +90,28 @@ public class BaseActivity extends Activity {
 			//*/
 			mProvinceDatas = new String[provinceList.size()];
         	for (int i=0; i< provinceList.size(); i++) {
-        		// ±éÀúËùÓĞÊ¡µÄÊı¾İ
+        		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¡ï¿½ï¿½ï¿½ï¿½ï¿½
         		mProvinceDatas[i] = provinceList.get(i).getName();
         		List<CityModel> cityList = provinceList.get(i).getCityList();
         		String[] cityNames = new String[cityList.size()];
         		for (int j=0; j< cityList.size(); j++) {
-        			// ±éÀúÊ¡ÏÂÃæµÄËùÓĞÊĞµÄÊı¾İ
+        			// ï¿½ï¿½ï¿½ï¿½Ê¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğµï¿½ï¿½ï¿½ï¿½
         			cityNames[j] = cityList.get(j).getName();
         			List<DistrictModel> districtList = cityList.get(j).getDistrictList();
         			String[] distrinctNameArray = new String[districtList.size()];
         			DistrictModel[] distrinctArray = new DistrictModel[districtList.size()];
         			for (int k=0; k<districtList.size(); k++) {
-        				// ±éÀúÊĞÏÂÃæËùÓĞÇø/ÏØµÄÊı¾İ
+        				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½Øµï¿½ï¿½ï¿½ï¿½
         				DistrictModel districtModel = new DistrictModel(districtList.get(k).getName(), districtList.get(k).getZipcode());
-        				// Çø/ÏØ¶ÔÓÚµÄÓÊ±à£¬±£´æµ½mZipcodeDatasMap
+        				// ï¿½ï¿½/ï¿½Ø¶ï¿½ï¿½Úµï¿½ï¿½Ê±à£¬ï¿½ï¿½ï¿½æµ½mZipcodeDatasMap
         				mZipcodeDatasMap.put(districtList.get(k).getName(), districtList.get(k).getZipcode());
         				distrinctArray[k] = districtModel;
         				distrinctNameArray[k] = districtModel.getName();
         			}
-        			// ÊĞ-Çø/ÏØµÄÊı¾İ£¬±£´æµ½mDistrictDatasMap
+        			// ï¿½ï¿½-ï¿½ï¿½/ï¿½Øµï¿½ï¿½ï¿½İ£ï¿½ï¿½ï¿½ï¿½æµ½mDistrictDatasMap
         			mDistrictDatasMap.put(cityNames[j], distrinctNameArray);
         		}
-        		// Ê¡-ÊĞµÄÊı¾İ£¬±£´æµ½mCitisDatasMap
+        		// Ê¡-ï¿½Ğµï¿½ï¿½ï¿½İ£ï¿½ï¿½ï¿½ï¿½æµ½mCitisDatasMap
         		mCitisDatasMap.put(provinceList.get(i).getName(), cityNames);
         	}
         } catch (Throwable e) {  

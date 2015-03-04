@@ -1,25 +1,27 @@
 package com.mrwujay.cascade.activity;
 
 import com.mrwujay.cascade.R;
-import com.mrwujay.cascade.R.id;
-import com.mrwujay.cascade.R.layout;
 
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public class MainActivity extends BaseActivity implements OnClickListener, OnWheelChangedListener {
-	private WheelView mViewProvince;
-	private WheelView mViewCity;
-	private WheelView mViewDistrict;
+	private WheelView mViewHour;
+	private WheelView mViewMinute;
 	private Button mBtnConfirm;
+	private TextView mTextViewTime;
+	
+	private String[] mHourDatas = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+	private String[] mMinuteDatas = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15"
+			, "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35"
+			, "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55"
+			, "56", "57", "58", "59"};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,77 +32,43 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnWhe
 		setUpData();
 	}
 	
+	/**
+	 * 初始化控件
+	 */
 	private void setUpViews() {
-		mViewProvince = (WheelView) findViewById(R.id.id_province);
-		mViewCity = (WheelView) findViewById(R.id.id_city);
-		mViewDistrict = (WheelView) findViewById(R.id.id_district);
+		mViewHour = (WheelView) findViewById(R.id.id_hour);
+		mViewMinute = (WheelView) findViewById(R.id.id_minute);
 		mBtnConfirm = (Button) findViewById(R.id.btn_confirm);
+		mTextViewTime = (TextView)findViewById(R.id.id_time);
 	}
 	
 	private void setUpListener() {
-    	// ���change�¼�
-    	mViewProvince.addChangingListener(this);
-    	// ���change�¼�
-    	mViewCity.addChangingListener(this);
-    	// ���change�¼�
-    	mViewDistrict.addChangingListener(this);
-    	// ���onclick�¼�
+    	// 设置省监听
+		mViewHour.addChangingListener(this);
+    	// 设置城市监听
+		mViewMinute.addChangingListener(this);
+    	// 设置“确定”按钮监听事件
     	mBtnConfirm.setOnClickListener(this);
     }
 	
 	private void setUpData() {
 		initProvinceDatas();
-		mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(MainActivity.this, mProvinceDatas));
-		// ���ÿɼ���Ŀ����
-		mViewProvince.setVisibleItems(7);
-		mViewCity.setVisibleItems(7);
-		mViewDistrict.setVisibleItems(7);
-		updateCities();
-		updateAreas();
+		mViewHour.setViewAdapter(new ArrayWheelAdapter<String>(MainActivity.this, mHourDatas));
+		mViewMinute.setViewAdapter(new ArrayWheelAdapter<String>(MainActivity.this, mMinuteDatas));
+		// 设置每个滚轮显示子item的数量
+		mViewHour.setVisibleItems(7);
+		mViewMinute.setVisibleItems(7);
 	}
 
 	@Override
 	public void onChanged(WheelView wheel, int oldValue, int newValue) {
-		// TODO Auto-generated method stub
-		if (wheel == mViewProvince) {
-			updateCities();
-		} else if (wheel == mViewCity) {
-			updateAreas();
-		} else if (wheel == mViewDistrict) {
-			mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
-			mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
+		if (wheel == mViewHour) {
+			showSelectedResult();
+		} else if (wheel == mViewMinute) {
+			showSelectedResult();
 		}
 	}
 
-	/**
-	 * ��ݵ�ǰ���У�������WheelView����Ϣ
-	 */
-	private void updateAreas() {
-		int pCurrent = mViewCity.getCurrentItem();
-		mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
-		String[] areas = mDistrictDatasMap.get(mCurrentCityName);
-
-		if (areas == null) {
-			areas = new String[] { "" };
-		}
-		mViewDistrict.setViewAdapter(new ArrayWheelAdapter<String>(this, areas));
-		mViewDistrict.setCurrentItem(0);
-	}
-
-	/**
-	 * ��ݵ�ǰ��ʡ��������WheelView����Ϣ
-	 */
-	private void updateCities() {
-		int pCurrent = mViewProvince.getCurrentItem();
-		mCurrentProviceName = mProvinceDatas[pCurrent];
-		String[] cities = mCitisDatasMap.get(mCurrentProviceName);
-		if (cities == null) {
-			cities = new String[] { "" };
-		}
-		mViewCity.setViewAdapter(new ArrayWheelAdapter<String>(this, cities));
-		mViewCity.setCurrentItem(0);
-		updateAreas();
-	}
 
 	@Override
 	public void onClick(View v) {
@@ -114,7 +82,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnWhe
 	}
 
 	private void showSelectedResult() {
-		Toast.makeText(MainActivity.this, "地点:"+mCurrentProviceName+","+mCurrentCityName+","
-				+mCurrentDistrictName+","+mCurrentZipCode, Toast.LENGTH_SHORT).show();
+		mTextViewTime.setText("时间:" + mHourDatas[mViewHour.getCurrentItem()] + ":" + mMinuteDatas[mViewMinute.getCurrentItem()]);
 	}
 }
