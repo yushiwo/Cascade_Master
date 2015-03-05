@@ -56,6 +56,12 @@
             android:layout_weight="1" >
         </kankan.wheel.widget.WheelView> -->
     </LinearLayout>
+    
+    <kankan.wheel.widget.TimePicker
+    	android:id="@+id/id_timepicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </kankan.wheel.widget.TimePicker>
 
     <Button
         android:id="@+id/btn_confirm"

@@ -3,19 +3,23 @@ package com.mrwujay.cascade.activity;
 import com.mrwujay.cascade.R;
 
 import kankan.wheel.widget.OnWheelChangedListener;
+import kankan.wheel.widget.TimePicker;
+import kankan.wheel.widget.TimePicker.TimePickerListener;
 import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends BaseActivity implements OnClickListener, OnWheelChangedListener {
+public class MainActivity extends Activity implements OnClickListener, OnWheelChangedListener {
 	private WheelView mViewHour;
 	private WheelView mViewMinute;
 	private Button mBtnConfirm;
 	private TextView mTextViewTime;
+	private TimePicker mTimePicker;
 	
 	private String[] mHourDatas = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
 	private String[] mMinuteDatas = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15"
@@ -40,6 +44,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnWhe
 		mViewMinute = (WheelView) findViewById(R.id.id_minute);
 		mBtnConfirm = (Button) findViewById(R.id.btn_confirm);
 		mTextViewTime = (TextView)findViewById(R.id.id_time);
+		mTimePicker = (TimePicker)findViewById(R.id.id_timepicker);
 	}
 	
 	private void setUpListener() {
@@ -49,10 +54,18 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnWhe
 		mViewMinute.addChangingListener(this);
     	// 设置“确定”按钮监听事件
     	mBtnConfirm.setOnClickListener(this);
+    	
+    	//设置TimePicker组合控件监听
+    	mTimePicker.setTimePickerListener(new TimePickerListener() {
+			
+			@Override
+			public void onPick(String hour, String minute) {
+				mTextViewTime.setText("时间:" + hour + ":" + minute);
+			}
+		});
     }
 	
 	private void setUpData() {
-		initProvinceDatas();
 		mViewHour.setViewAdapter(new ArrayWheelAdapter<String>(MainActivity.this, mHourDatas));
 		mViewMinute.setViewAdapter(new ArrayWheelAdapter<String>(MainActivity.this, mMinuteDatas));
 		// 设置每个滚轮显示子item的数量
