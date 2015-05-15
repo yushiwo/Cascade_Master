@@ -16,8 +16,11 @@ public class TimePicker extends LinearLayout implements OnWheelChangedListener{
 
 	private static final int MSG_TIME_PICKED = 0;
 	
+	/** 小时选择器 */
 	private WheelView mViewHour;
+	/** 分钟选择器 */
 	private WheelView mViewMinute;
+	/** timepicker监听接口 */
 	private TimePickerListener mTimePickerListener;
 	
 	private String[] mHourDatas = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
@@ -58,6 +61,16 @@ public class TimePicker extends LinearLayout implements OnWheelChangedListener{
 		setUpViews();
 		setUpData(context);
 		setUpListener();
+	}
+	
+	/**
+	 * 设置当前控件显示时间 
+	 * @param hour
+	 * @param minute
+	 */
+	public void setCurrentTime(int hour, int minute){
+		mViewHour.setCurrentItem(hour);
+		mViewMinute.setCurrentItem(minute);
 	}
 	
 	/**

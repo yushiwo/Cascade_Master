@@ -71,6 +71,8 @@ public class MainActivity extends Activity implements OnClickListener, OnWheelCh
 		// 设置每个滚轮显示子item的数量
 		mViewHour.setVisibleItems(7);
 		mViewMinute.setVisibleItems(7);
+		
+		mTimePicker.setCurrentTime(10, 29);
 	}
 
 	@Override
