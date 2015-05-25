@@ -24,7 +24,7 @@ import java.util.List;
 
 import com.mrwujay.cascade.R;
 
-import kankan.wheel.widget.adapters.WheelViewAdapter;
+import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
@@ -78,8 +78,8 @@ public class WheelView extends View {
 	private Drawable centerDrawable;
 
 	// Wheel drawables
-	private int wheelBackground = R.drawable.wheel_bg_colorui;
-	private int wheelForeground = R.drawable.wheel_val_colorui;
+	private int wheelBackground = R.drawable.colorui_wheel_bg;
+	private int wheelForeground = R.drawable.colorui_wheel_val;
 
 	// Shadows drawables
 	private GradientDrawable topShadow;
@@ -103,7 +103,7 @@ public class WheelView extends View {
 	private int firstItem;
 
 	// View adapter
-	private WheelViewAdapter viewAdapter;
+	private ArrayWheelAdapter viewAdapter;
 
 	// Recycle
 	private WheelRecycle recycle = new WheelRecycle(this);
@@ -218,7 +218,7 @@ public class WheelView extends View {
 	 * Gets view adapter
 	 * @return the view adapter
 	 */
-	public WheelViewAdapter getViewAdapter() {
+	public ArrayWheelAdapter getViewAdapter() {
 		return viewAdapter;
 	}
 
@@ -241,7 +241,7 @@ public class WheelView extends View {
 	 * 
 	 * @param viewAdapter the view adapter
 	 */
-	public void setViewAdapter(WheelViewAdapter viewAdapter) {
+	public void setViewAdapter(ArrayWheelAdapter viewAdapter) {
 		if (this.viewAdapter != null) {
 			this.viewAdapter.unregisterDataSetObserver(dataObserver);
 		}
@@ -670,7 +670,9 @@ public class WheelView extends View {
 		centerDrawable.draw(canvas);
 		//*/
 		Paint paint = new Paint();
-		paint.setColor(getResources().getColor(R.color.province_line_border));
+//		paint.setColor(getResources().getColor(R.color.province_line_border));
+		// #C7C7C7
+		paint.setARGB(255, 199, 199, 199);
 		// 设置线宽
 		paint.setStrokeWidth((float) 3);
 		// 绘制上边直线

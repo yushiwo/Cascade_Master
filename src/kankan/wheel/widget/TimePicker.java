@@ -57,10 +57,13 @@ public class TimePicker extends LinearLayout implements OnWheelChangedListener{
 	}
 	
 	private void init(Context context){
-		LayoutInflater.from(context).inflate(R.layout.layout_time_picker, this, true);  
+		LayoutInflater.from(context).inflate(R.layout.colorui_timepicker, this, true);  
 		setUpViews();
 		setUpData(context);
 		setUpListener();
+		
+		setTextSize(25);
+		setTextColor(0xFF700070);
 	}
 	
 	/**
@@ -102,6 +105,22 @@ public class TimePicker extends LinearLayout implements OnWheelChangedListener{
     	// 设置分钟监听
 		mViewMinute.addChangingListener(this);
     }
+	
+	/**
+	 * 设置文字大小
+	 */
+	public void setTextSize(int textSize){
+		mViewHour.getViewAdapter().setTextSize(textSize);
+		mViewMinute.getViewAdapter().setTextSize(textSize);
+	}
+	
+	/**
+	 * 设置文字颜色
+	 */
+	public void setTextColor(int textColor){
+		mViewHour.getViewAdapter().setTextColor(textColor);
+		mViewMinute.getViewAdapter().setTextColor(textColor);
+	}
 
 	@Override
 	public void onChanged(WheelView wheel, int oldValue, int newValue) {
