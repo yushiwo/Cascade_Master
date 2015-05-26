@@ -107,6 +107,11 @@ public class WheelView extends View {
 
 	// Recycle
 	private WheelRecycle recycle = new WheelRecycle(this);
+	
+	// 分割线颜色值
+	private int dividerColor_R = 199;
+	private int dividerColor_G = 199;
+	private int dividerColor_B = 199;
 
 	// Listeners
 	private List<OnWheelChangedListener> changingListeners = new LinkedList<OnWheelChangedListener>();
@@ -185,6 +190,12 @@ public class WheelView extends View {
 			}
 		}
 	};
+	
+	 public void setDividerColor(int R, int G, int B){
+		 dividerColor_R = R;
+		 dividerColor_G = G;
+		 dividerColor_B = B;
+	 }
 
 	/**
 	 * Set the the specified scrolling interpolator
@@ -672,7 +683,7 @@ public class WheelView extends View {
 		Paint paint = new Paint();
 //		paint.setColor(getResources().getColor(R.color.province_line_border));
 		// #C7C7C7
-		paint.setARGB(255, 199, 199, 199);
+		paint.setARGB(255, dividerColor_R, dividerColor_G, dividerColor_B);
 		// 设置线宽
 		paint.setStrokeWidth((float) 3);
 		// 绘制上边直线

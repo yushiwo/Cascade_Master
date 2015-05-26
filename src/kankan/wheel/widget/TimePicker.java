@@ -1,5 +1,7 @@
 package kankan.wheel.widget;
 
+import java.util.Calendar;
+
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 
 import com.mrwujay.cascade.R;
@@ -9,9 +11,15 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
+/**
+ * 自定义timepicker
+ * @author zr
+ *
+ */
 public class TimePicker extends LinearLayout implements OnWheelChangedListener{
 
 	private static final int MSG_TIME_PICKED = 0;
@@ -60,20 +68,19 @@ public class TimePicker extends LinearLayout implements OnWheelChangedListener{
 		LayoutInflater.from(context).inflate(R.layout.colorui_timepicker, this, true);  
 		setUpViews();
 		setUpData(context);
-		setUpListener();
-		
-		setTextSize(25);
-		setTextColor(0xFF700070);
+		setUpListener();	
+		setDisplayDefaultTime();
 	}
 	
 	/**
-	 * 设置当前控件显示时间 
+	 * 设置当前控件显示当前系统时间
 	 * @param hour
 	 * @param minute
 	 */
-	public void setCurrentTime(int hour, int minute){
-		mViewHour.setCurrentItem(hour);
-		mViewMinute.setCurrentItem(minute);
+	private void setDisplayDefaultTime(){
+		Calendar calendar = Calendar.getInstance();
+		mViewHour.setCurrentItem(calendar.get(Calendar.HOUR_OF_DAY));
+		mViewMinute.setCurrentItem(calendar.get(Calendar.MINUTE));
 	}
 	
 	/**
@@ -120,6 +127,77 @@ public class TimePicker extends LinearLayout implements OnWheelChangedListener{
 	public void setTextColor(int textColor){
 		mViewHour.getViewAdapter().setTextColor(textColor);
 		mViewMinute.getViewAdapter().setTextColor(textColor);
+	}
+	
+	/**
+	 * 设置timepicker分割线的颜色
+	 * @param r
+	 * @param g
+	 * @param b
+	 */
+	public void setDividerColor(int r, int g, int b){
+		mViewHour.setDividerColor(r, g, b);
+		mViewMinute.setDividerColor(r, g, b);
+	}
+	
+	/**
+	 * 获取当前timepicker显示的时间
+	 * @return
+	 */
+	public String getCurTime(){
+		Calendar calendar =  Calendar.getInstance();
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH) + 1;
+		int day = calendar.get(Calendar.DAY_OF_MONTH);
+		String hour = mHourDatas[mViewHour.getCurrentItem()];
+		String mint = mMinuteDatas[mViewMinute.getCurrentItem()];
+		StringBuilder sb =new StringBuilder();
+		return sb.append(year).append(String.format("%02d",month)).append(String.format("%02d",day)).append("T").append(hour).append(":").append(mint).append(":00").toString();
+	}
+	
+	/**
+	 * 设置timepicker显示时间
+	 * @param time
+	 */
+	public void setCurTime(String time){
+		try{
+			Calendar calendar = convertToCalendar(time);
+			if(calendar !=null){
+				mViewHour.setCurrentItem(calendar.get(Calendar.HOUR_OF_DAY));
+				mViewMinute.setCurrentItem(calendar.get(Calendar.MINUTE));
+			}
+			else{
+				Log.e("timepicker", "setCurTime error");
+			}
+		}
+		catch(Exception e){
+			Log.e("timepicker", "setCurTime error");
+		}
+	}
+	
+	
+	/**
+	 * 将字符串时间转换为日历时间
+	 * @param time
+	 * @return
+	 */
+	private Calendar convertToCalendar(String time){
+		Calendar calendar = null;
+		try{
+			//20140614T17:35:23
+			calendar = Calendar.getInstance();
+			int year = Integer.parseInt(time.substring(0, 4));
+			int month =  Integer.parseInt(time.substring(4,6));
+			int day = Integer.parseInt(time.substring(6,8));
+			int hour = Integer.parseInt(time.substring(9,11));
+			int minute = Integer.parseInt(time.substring(12,14));
+			
+			int second =Integer.parseInt( time.substring(15,17));
+			calendar.set(year, month, day, hour, minute, second);
+		}catch(Exception e){
+			e.printStackTrace();
+		}			
+		return calendar;
 	}
 
 	@Override
