@@ -55,6 +55,7 @@ public class WheelView extends View {
 	
 	private int[] SHADOWS_COLORS = new int[] { 0xefE9E9E9,
 			0xcfE9E9E9, 0x3fE9E9E9 };
+	
 
 	/** Top and bottom items offset (to hide that) */
 	private static final int ITEM_OFFSET_PERCENT = 0;
@@ -112,6 +113,10 @@ public class WheelView extends View {
 	private int dividerColor_R = 199;
 	private int dividerColor_G = 199;
 	private int dividerColor_B = 199;
+	/** 分割线颜色 */
+	private int dividerColor = 0xC7C7C7EE;
+	
+	private int backgroundColor = 0xFF202020;
 
 	// Listeners
 	private List<OnWheelChangedListener> changingListeners = new LinkedList<OnWheelChangedListener>();
@@ -191,11 +196,28 @@ public class WheelView extends View {
 		}
 	};
 	
-	 public void setDividerColor(int R, int G, int B){
+	 /**
+	 * @param R
+	 * @param G
+	 * @param B
+	 */
+	public void setDividerColor(int R, int G, int B){
 		 dividerColor_R = R;
 		 dividerColor_G = G;
 		 dividerColor_B = B;
 	 }
+	 
+	 /**
+	  * 设置分割线颜色
+	 * @param color
+	 */
+	public void setDividerColor(int color){
+		 dividerColor = color;
+	 }
+	
+	public void setWheelBgColor(int color){
+		backgroundColor = color;
+	}
 
 	/**
 	 * Set the the specified scrolling interpolator
@@ -509,7 +531,9 @@ public class WheelView extends View {
 			bottomShadow = new GradientDrawable(Orientation.BOTTOM_TOP, SHADOWS_COLORS);
 		}
 
-		setBackgroundResource(wheelBackground);
+//		setBackgroundResource(wheelBackground);
+		//设置背景颜色
+		setBackgroundColor(backgroundColor);
 	}
 
 	/**
@@ -681,9 +705,9 @@ public class WheelView extends View {
 		centerDrawable.draw(canvas);
 		//*/
 		Paint paint = new Paint();
-//		paint.setColor(getResources().getColor(R.color.province_line_border));
+		paint.setColor(dividerColor);
 		// #C7C7C7
-		paint.setARGB(255, dividerColor_R, dividerColor_G, dividerColor_B);
+//		paint.setARGB(255, dividerColor_R, dividerColor_G, dividerColor_B);
 		// 设置线宽
 		paint.setStrokeWidth((float) 3);
 		// 绘制上边直线

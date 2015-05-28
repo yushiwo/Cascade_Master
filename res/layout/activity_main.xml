@@ -23,27 +23,6 @@
             android:textSize="20sp" />
     </RelativeLayout>
 
-<!--    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dip"
-        android:orientation="horizontal" >
-
-        <kankan.wheel.widget.WheelView
-            android:id="@+id/id_hour"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-        </kankan.wheel.widget.WheelView>
-
-        <kankan.wheel.widget.WheelView
-            android:id="@+id/id_minute"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-        </kankan.wheel.widget.WheelView>
-    </LinearLayout>
-     -->
     <kankan.wheel.widget.TimePicker
     	android:id="@+id/id_timepicker"
         android:layout_width="match_parent"
@@ -57,6 +36,15 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="确定"
+        android:textColor="#000000" />
+    
+    <Button
+        android:id="@+id/btn_settime"
+        android:layout_marginTop="10dip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="设置时间"
         android:textColor="#000000" />
 
 </LinearLayout>

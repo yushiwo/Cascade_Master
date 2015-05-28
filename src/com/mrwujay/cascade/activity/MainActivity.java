@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
 	private Button mBtnConfirm;
+	private Button mBtnSet;
 	private TextView mTextViewTime;
 	private TimePicker mTimePicker;
 	
@@ -30,18 +31,22 @@ public class MainActivity extends Activity implements OnClickListener {
 	 */
 	private void setUpViews() {
 		mBtnConfirm = (Button) findViewById(R.id.btn_confirm);
+		mBtnSet = (Button) findViewById(R.id.btn_settime);
 		mTextViewTime = (TextView)findViewById(R.id.id_time);
 		mTimePicker = (TimePicker)findViewById(R.id.id_timepicker);
 		
 //		mTimePicker.setCurTime("00000000T12:45:02");
-		mTimePicker.setTextSize(25);
+		mTimePicker.setTextSize(35);
 		mTimePicker.setTextColor(0xFF700070);
-		mTimePicker.setDividerColor(50, 143, 50);
+//		mTimePicker.setDividerColor(50, 143, 50);
+		mTimePicker.setDividerColor(0xFF700070);
+		mTimePicker.setBgColor(0xFF909090);
 	}
 	
 	private void setUpListener() {
     	// 设置“确定”按钮监听事件
     	mBtnConfirm.setOnClickListener(this);
+    	mBtnSet.setOnClickListener(this);
     	
     	//设置TimePicker组合控件监听
     	mTimePicker.setTimePickerListener(new TimePickerListener() {
@@ -60,6 +65,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.btn_confirm:
 			showSelectedResult();
+			break;
+		case R.id.btn_settime:
+			mTimePicker.setCurTime("00000000T12:45:02");
 			break;
 		default:
 			break;

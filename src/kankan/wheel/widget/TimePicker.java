@@ -31,7 +31,8 @@ public class TimePicker extends LinearLayout implements OnWheelChangedListener{
 	/** timepicker监听接口 */
 	private TimePickerListener mTimePickerListener;
 	
-	private String[] mHourDatas = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+	private String[] mHourDatas = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15"
+			, "16", "17", "18", "19", "20", "21", "22", "23"};
 	private String[] mMinuteDatas = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15"
 			, "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35"
 			, "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55"
@@ -89,6 +90,11 @@ public class TimePicker extends LinearLayout implements OnWheelChangedListener{
 	private void setUpViews() {
 		mViewHour = (WheelView) findViewById(R.id.id_hour);
 		mViewMinute = (WheelView) findViewById(R.id.id_minute);
+		
+		mViewHour.setDrawShadows(false);
+		mViewMinute.setDrawShadows(false);
+		mViewHour.setBackgroundColor(0xFFEEEEEE);
+		mViewHour.setBackgroundResource(R.drawable.ic_launcher);
 	}
 	
 	/**
@@ -138,6 +144,24 @@ public class TimePicker extends LinearLayout implements OnWheelChangedListener{
 	public void setDividerColor(int r, int g, int b){
 		mViewHour.setDividerColor(r, g, b);
 		mViewMinute.setDividerColor(r, g, b);
+	}
+	
+	/**
+	 * 设置timepicker分割线的颜色
+	 * @param color
+	 */
+	public void setDividerColor(int color){
+		mViewHour.setDividerColor(color);
+		mViewMinute.setDividerColor(color);
+	}
+	
+	/**
+	 * 设置背景颜色
+	 * @param color
+	 */
+	public void setBgColor(int color){
+		mViewHour.setWheelBgColor(color);
+		mViewMinute.setWheelBgColor(color);
 	}
 	
 	/**
