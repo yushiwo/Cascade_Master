@@ -36,11 +36,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		mTimePicker = (TimePicker)findViewById(R.id.id_timepicker);
 		
 //		mTimePicker.setCurTime("00000000T12:45:02");
-		mTimePicker.setTextSize(35);
+		mTimePicker.setTextSize(25);
 		mTimePicker.setTextColor(0xFF700070);
 //		mTimePicker.setDividerColor(50, 143, 50);
 		mTimePicker.setDividerColor(0xFF700070);
 		mTimePicker.setBgColor(0xFF909090);
+		mTimePicker.setDividerHeight(3);
 	}
 	
 	private void setUpListener() {

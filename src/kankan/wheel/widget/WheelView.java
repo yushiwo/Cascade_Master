@@ -115,6 +115,8 @@ public class WheelView extends View {
 	private int dividerColor_B = 199;
 	/** 分割线颜色 */
 	private int dividerColor = 0xC7C7C7EE;
+	/** 分割线宽度 */
+	private int dividerHeight = 3;
 	
 	private int backgroundColor = 0xFF202020;
 
@@ -214,6 +216,10 @@ public class WheelView extends View {
 	public void setDividerColor(int color){
 		 dividerColor = color;
 	 }
+	
+	public void setDividerHeight(int height){
+		dividerHeight = height;
+	}
 	
 	public void setWheelBgColor(int color){
 		backgroundColor = color;
@@ -709,7 +715,7 @@ public class WheelView extends View {
 		// #C7C7C7
 //		paint.setARGB(255, dividerColor_R, dividerColor_G, dividerColor_B);
 		// 设置线宽
-		paint.setStrokeWidth((float) 3);
+		paint.setStrokeWidth((float) dividerHeight);
 		// 绘制上边直线
 		canvas.drawLine(0, center - offset, getWidth(), center - offset, paint);
 		// 绘制下边直线

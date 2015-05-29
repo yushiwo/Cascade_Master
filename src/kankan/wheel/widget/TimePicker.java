@@ -105,8 +105,8 @@ public class TimePicker extends LinearLayout implements OnWheelChangedListener{
 		mViewHour.setViewAdapter(new ArrayWheelAdapter<String>(context, mHourDatas));
 		mViewMinute.setViewAdapter(new ArrayWheelAdapter<String>(context, mMinuteDatas));
 		// 设置每个滚轮显示子item的数量
-		mViewHour.setVisibleItems(7);
-		mViewMinute.setVisibleItems(7);
+		mViewHour.setVisibleItems(5);
+		mViewMinute.setVisibleItems(5);
 	}
 	
 	/**
@@ -162,6 +162,15 @@ public class TimePicker extends LinearLayout implements OnWheelChangedListener{
 	public void setBgColor(int color){
 		mViewHour.setWheelBgColor(color);
 		mViewMinute.setWheelBgColor(color);
+	}
+	
+	/**
+	 * 设置分割线的高度
+	 * @param height
+	 */
+	public void setDividerHeight(int height){
+		mViewHour.setDividerHeight(height);
+		mViewMinute.setDividerHeight(height);
 	}
 	
 	/**
